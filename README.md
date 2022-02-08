@@ -33,6 +33,10 @@ $ ./build.sh
 Run the image
 
 ```bash
+$ xhost +local:docker
+```
+
+```bash
 $ ./run.sh
 ```
 

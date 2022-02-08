@@ -64,7 +64,7 @@ data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_cam
 show_only_frames = [0, 10]  # show only frames in interval for debugging
 
 # set pause time between frames in ms (0 = stop between frames until key is pressed)
-vis_pause_time = 0  
+vis_pause_time = 0
 
 # Prepare Waymo Open Dataset file for loading
 data_fullpath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'dataset', data_filename)  # adjustable path in case this script is called from another working directory
@@ -93,8 +93,8 @@ while True:
         print('------------------------------')
         print('processing frame #' + str(cnt_frame))
 
-        # Usage instruction : When working on a specific exercise, 
-        # simply uncomment the respective function calls and open 
+        # Usage instruction : When working on a specific exercise,
+        # simply uncomment the respective function calls and open
         # the implementation for more details
 
         ####### LESSON 1 EXERCISES & EXAMPLES START #######
@@ -103,10 +103,10 @@ while True:
         lidar_name = dataset_pb2.LaserName.TOP
 
         # Exercise C1-3-1 : print no. of vehicles
-        # l1_exercises.print_no_of_vehicles(frame) 
+        # l1_exercises.print_no_of_vehicles(frame)
 
         # Example C1-3-2 : display camera image
-        # l1_examples.display_image(frame)
+        l1_examples.display_image(frame)
 
         # Example C1-3-3 : print angle of vertical field of view
         # l1_examples.print_vfov_lidar(frame, lidar_name)
