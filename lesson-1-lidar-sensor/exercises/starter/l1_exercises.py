@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------
 # Exercises from lesson 1 (lidar)
-# Copyright (C) 2020, Dr. Antje Muntzinger / Dr. Andreas Haja.  
+# Copyright (C) 2020, Dr. Antje Muntzinger / Dr. Andreas Haja.
 #
 # Purpose of this file : Starter Code
 #
@@ -42,8 +42,8 @@ def print_pitch_resolution(frame, lidar_name):
 
     print("Exercise C1-5-2")
     # load range image
-        
-    # compute vertical field-of-view from lidar calibration 
+
+    # compute vertical field-of-view from lidar calibration
 
     # compute pitch resolution and convert it to angular minutes
 
@@ -51,10 +51,21 @@ def print_pitch_resolution(frame, lidar_name):
 # Exercise C1-3-1 : print no. of vehicles
 def print_no_of_vehicles(frame):
 
-    print("Exercise C1-3-1")    
+    print("Exercise C1-3-1")
 
     # find out the number of labeled vehicles in the given frame
     # Hint: inspect the data structure frame.laser_labels
     num_vehicles = 0
-            
+    for label in frame.laser_labels:
+        if label.type == label.TYPE_VEHICLE:
+            num_vehicles += 1
+
     print("number of labeled vehicles in current frame = " + str(num_vehicles))
+
+
+# Exercise C1-3-4 : print no. of laser LEDs of the top LiDAR
+def print_no_of_laser_leds(frame, lidar_name):
+    for laser in frame.context.laser_calibrations:
+        if laser.name == lidar_name:
+            print("number of individual laser LEDs in current frame = ",
+                  len(laser.beam_inclinations))

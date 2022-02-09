@@ -106,10 +106,13 @@ while True:
         # l1_exercises.print_no_of_vehicles(frame)
 
         # Example C1-3-2 : display camera image
-        l1_examples.display_image(frame)
+        # l1_examples.display_image(frame)
 
         # Example C1-3-3 : print angle of vertical field of view
         # l1_examples.print_vfov_lidar(frame, lidar_name)
+
+        # Exercise C1-3-4 : print no. of laser LEDs of the top LiDAR
+        l1_exercises.print_no_of_laser_leds(frame, lidar_name)
 
         # Example C1-5-1 : Load range image
         # l1_examples.print_range_image_shape(frame, lidar_name)
