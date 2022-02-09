@@ -7,5 +7,4 @@ docker run \
     --network=host \
     --shm-size="20g" \
     --volume="$PWD:/app/project/" \
-    --privileged \
     project2-dev bash
