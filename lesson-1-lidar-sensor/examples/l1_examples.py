@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------
 # Exercises from lesson 1 (lidar)
-# Copyright (C) 2020, Dr. Antje Muntzinger / Dr. Andreas Haja.  
+# Copyright (C) 2020, Dr. Antje Muntzinger / Dr. Andreas Haja.
 #
 # Purpose of this file : Examples
 #
@@ -30,7 +30,7 @@ from tools.waymo_reader.simple_waymo_open_dataset_reader import dataset_pb2
 
 # Example C1-5-1 : Load range image
 def load_range_image(frame, lidar_name):
-    
+
     lidar = [obj for obj in frame.lasers if obj.name == lidar_name][0] # get laser data structure from frame
     ri = []
     if len(lidar.ri_return1.range_image_compressed) > 0: # use first response
@@ -62,6 +62,8 @@ def range_image_to_point_cloud(frame, lidar_name, vis=True):
     extrinsic = np.array(calibration.extrinsic.transform).reshape(4,4)
     az_correction = math.atan2(extrinsic[1,0], extrinsic[0,0])
     azimuth = np.linspace(np.pi,-np.pi,width) - az_correction
+    print(azimuth[len(azimuth)//2])
+
 
     # expand inclination and azimuth such that every range image cell has its own appropriate value pair
     azimuth_tiled = np.broadcast_to(azimuth[np.newaxis,:], (height,width))
@@ -80,7 +82,7 @@ def range_image_to_point_cloud(frame, lidar_name, vis=True):
     # extract points with range > 0
     idx_range = ri_range > 0
     pcl = xyz_vehicle[idx_range,:3]
- 
+
     # visualize point-cloud
     if vis:
         pcd = o3d.geometry.PointCloud()
@@ -88,9 +90,9 @@ def range_image_to_point_cloud(frame, lidar_name, vis=True):
         o3d.visualization.draw_geometries([pcd])
 
     # stack lidar point intensity as last column
-    pcl_full = np.column_stack((pcl, ri[idx_range, 1]))    
+    pcl_full = np.column_stack((pcl, ri[idx_range, 1]))
 
-    return pcl_full    
+    return pcl_full
 
 
 # Example C1-5-4 : Visualize range channel
@@ -106,7 +108,7 @@ def vis_range_channel(frame, lidar_name):
     img_range = ri_range.astype(np.uint8)
 
     # focus on +/- 45° around the image center
-    deg45 = int(img_range.shape[1] / 8)
+    deg45 = int(img_range.shape[1] / 8) # 360° / 45° = 8
     ri_center = int(img_range.shape[1]/2)
     img_range = img_range[:,ri_center-deg45:ri_center+deg45]
 
@@ -137,7 +139,7 @@ def print_range_image_shape(frame, lidar_name):
     #ri_range = ri[:,:,0]
     #ri_range = ri_range * 256 / (np.amax(ri_range) - np.amin(ri_range))
     #img_range = ri_range.astype(np.uint8)
-    
+
     # visualize range image
     #cv2.imshow('range_image', img_range)
     #cv2.waitKey(0)
@@ -171,7 +173,7 @@ def display_image(frame):
     dim = (int(img.shape[1] * 0.5), int(img.shape[0] * 0.5))
     resized = cv2.resize(img, dim)
 
-    # display the image 
+    # display the image
     cv2.imshow("Front-camera image", resized)
     cv2.waitKey(0)
 

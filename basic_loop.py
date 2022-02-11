@@ -112,7 +112,7 @@ while True:
         # l1_examples.print_vfov_lidar(frame, lidar_name)
 
         # Exercise C1-3-4 : print no. of laser LEDs of the top LiDAR
-        l1_exercises.print_no_of_laser_leds(frame, lidar_name)
+        # l1_exercises.print_no_of_laser_leds(frame, lidar_name)
 
         # Example C1-5-1 : Load range image
         # l1_examples.print_range_image_shape(frame, lidar_name)
@@ -130,7 +130,7 @@ while True:
         # l1_exercises.vis_intensity_channel(frame, lidar_name)
 
         # Example C1-5-6 : Convert range image to 3D point-cloud
-        # l1_examples.range_image_to_point_cloud(frame, lidar_name)
+        l1_examples.range_image_to_point_cloud(frame, lidar_name)
 
         #######
         ####### LESSON 1 EXERCISES & EXAMPLES  END #######
