@@ -79,3 +79,11 @@ WORKDIR /app
 
 COPY requirements.txt .
 RUN python3 -m pip install -r requirements.txt
+
+# Env vars for the nvidia-container-runtime
+# Can run OpenGL in Container
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics,utility,compute
+ENV LIBGL_ALWAYS_INDIRECT 1
