@@ -86,4 +86,20 @@ ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES \
     ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics,utility,compute
+
+# This fix: libGL error: No matching fbConfigs or visuals found
 ENV LIBGL_ALWAYS_INDIRECT 1
+
+##### X Client and GLX #####
+# provides xeyes
+RUN apt install -y x11-apps
+
+# provides glxgears and glxinfo
+RUN apt install -y mesa-utils
+############################
+
+# install nvidia driver
+RUN apt-get install -y binutils kmod
+ADD NVIDIA-DRIVER.run /tmp/NVIDIA-DRIVER.run
+RUN sh /tmp/NVIDIA-DRIVER.run -a -N --ui=none --no-kernel-module
+RUN rm /tmp/NVIDIA-DRIVER.run
