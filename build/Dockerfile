@@ -97,9 +97,3 @@ RUN apt install -y x11-apps
 # provides glxgears and glxinfo
 RUN apt install -y mesa-utils
 ############################
-
-# install nvidia driver
-RUN apt-get install -y binutils kmod
-ADD NVIDIA-DRIVER.run /tmp/NVIDIA-DRIVER.run
-RUN sh /tmp/NVIDIA-DRIVER.run -a -N --ui=none --no-kernel-module
-RUN rm /tmp/NVIDIA-DRIVER.run
