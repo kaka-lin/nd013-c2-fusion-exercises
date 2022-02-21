@@ -44,14 +44,24 @@ def compute_precision_recall(det_performance_all, conf_thresh=0.5):
 
     # extract the total number of positives, true positives, false negatives and false positives
     # format of det_performance_all is [ious, center_devs, pos_negs]
+    pos_negs = []
+    for obj in det_performance_all:
+        pos_negs.append(obj[2])
+    pos_negs = np.asarray(pos_negs)
 
-    #print("TP = " + str(true_positives) + ", FP = " + str(false_positives) + ", FN = " + str(false_negatives))
+    total_positives = sum(pos_negs[:, 0])
+    true_positives = sum(pos_negs[:, 1])
+    false_negatives = sum(pos_negs[:, 2])
+    false_positives = sum(pos_negs[:, 3])
+    print("TP = " + str(true_positives) + ", FP = " + str(false_positives) + ", FN = " + str(false_negatives))
 
     # compute precision
+    precision = true_positives / (true_positives + false_positives)
 
     # compute recall
+    recall = true_positives / (true_positives + false_negatives)
 
-    #print("precision = " + str(precision) + ", recall = " + str(recall) + ", conf_thres = " + str(conf_thresh) + "\n")
+    print("precision = " + str(precision) + ", recall = " + str(recall) + ", conf_thres = " + str(conf_thresh) + "\n")
 
 
 

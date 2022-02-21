@@ -74,7 +74,6 @@ def count_vehicles(frame):
 
     # loop over all labels
     for label in frame.laser_labels:
-
         if label.type == label_pb2.Label.Type.TYPE_VEHICLE:
             count_vehicles.cnt_vehicles += 1
             if label.detection_difficulty_level > 0:
