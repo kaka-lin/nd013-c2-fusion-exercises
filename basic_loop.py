@@ -15,7 +15,9 @@
 # Imports
 
 # general package imports
+from asyncio import FastChildWatcher
 import os
+from pickle import TRUE
 import sys
 import numpy as np
 import math
@@ -59,7 +61,7 @@ import l1_exercises
 
 # Select Waymo Open Dataset file and frame numbers
 data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord' # Sequence 1
-#data_filename = 'training_segment-10072231702153043603_5725_000_5745_000_with_camera_labels.tfrecord' # Sequence 2
+# data_filename = 'training_segment-10072231702153043603_5725_000_5745_000_with_camera_labels.tfrecord' # Sequence 2
 # data_filename = 'training_segment-10963653239323173269_1924_000_1944_000_with_camera_labels.tfrecord'  # Sequence 3
 show_only_frames = [0, 10]  # show only frames in interval for debugging
 
@@ -130,7 +132,7 @@ while True:
         # l1_exercises.vis_intensity_channel(frame, lidar_name)
 
         # Example C1-5-6 : Convert range image to 3D point-cloud
-        l1_examples.range_image_to_point_cloud(frame, lidar_name)
+        # l1_examples.range_image_to_point_cloud(frame, lidar_name)
 
         #######
         ####### LESSON 1 EXERCISES & EXAMPLES  END #######
@@ -150,14 +152,14 @@ while True:
         configs.model = 'darknet'
 
         # Example C2-3-1 : Crop point cloud
-        # lidar_pcl = l1_examples.range_image_to_point_cloud(frame, lidar_name, True)
-        # cropped_pcl = l2_examples.crop_pcl(lidar_pcl, configs, False)
+        lidar_pcl = l1_examples.range_image_to_point_cloud(frame, lidar_name, False)
+        cropped_pcl = l2_examples.crop_pcl(lidar_pcl, configs, False)
 
         # Exercise C2-3-2 : Transform metric point coordinates to BEV space
         # l2_exercises.pcl_to_bev(cropped_pcl, configs)
 
         # Example C2-3-3 : Minimum and maximum intensity
-        # l2_examples.min_max_intensity(lidar_pcl)
+        l2_examples.min_max_intensity(lidar_pcl)
 
         # Example C2-4-2 : count total no. of vehicles and vehicles that are difficult to track
         # l2_examples.count_vehicles(frame)

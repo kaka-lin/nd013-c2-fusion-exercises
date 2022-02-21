@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------
 # Exercises from lesson 2 (object detection)
-# Copyright (C) 2020, Dr. Antje Muntzinger / Dr. Andreas Haja.  
+# Copyright (C) 2020, Dr. Antje Muntzinger / Dr. Andreas Haja.
 #
 # Purpose of this file : Examples
 #
@@ -15,6 +15,7 @@ import io
 import sys
 import os
 import cv2
+from matplotlib.pyplot import hist
 import open3d as o3d
 import math
 import numpy as np
@@ -36,9 +37,9 @@ def render_obj_over_bev(detections, lidar_bev_labels, configs, vis=False):
 
     # display bev map
     if vis==True:
-        lidar_bev_labels = cv2.rotate(lidar_bev_labels, cv2.ROTATE_180)   
+        lidar_bev_labels = cv2.rotate(lidar_bev_labels, cv2.ROTATE_180)
         cv2.imshow("BEV map", lidar_bev_labels)
-        cv2.waitKey(0) 
+        cv2.waitKey(0)
 
 
 
@@ -52,16 +53,16 @@ def render_bb_over_bev(bev_map, labels, configs, vis=False):
     # convert bounding box format format and project into bev
     label_objects = tools.convert_labels_into_objects(labels, configs)
     tools.project_detections_into_bev(bev_map_cpy, label_objects, configs, [0,255,0])
-    
+
     # display bev map
     if vis==True:
-        bev_map_cpy = cv2.rotate(bev_map_cpy, cv2.ROTATE_180)   
+        bev_map_cpy = cv2.rotate(bev_map_cpy, cv2.ROTATE_180)
         cv2.imshow("BEV map", bev_map_cpy)
-        cv2.waitKey(0)          
+        cv2.waitKey(0)
 
-    return bev_map_cpy 
+    return bev_map_cpy
 
-    
+
 
 # Example C2-4-2 : count total no. of vehicles and vehicles that are difficult to track
 def count_vehicles(frame):
@@ -86,10 +87,15 @@ def count_vehicles(frame):
 def min_max_intensity(lidar_pcl):
 
     # retrieve min. and max. intensity value from point cloud
+    # 可以看出最小和最大差了 10^8
     min_int = np.amin(lidar_pcl[:,3])
     max_int = np.amax(lidar_pcl[:,3])
-
     print("min. intensity = " + str(min_int) + ", max. intensity = " + str(max_int))
+
+    # 觀察直方圖，可以看出大部分 intensity 值落在 0.001 ~ 1.0 之間
+    b = np.array([0, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1, 1e+1, 1e+2, 1e+3, 1e+4, 1e+5, 1e+6, 1e+7])
+    hist, bins = np.histogram(lidar_pcl[:,3], bins=b)
+    #print(hist)
 
 
 # Example C2-3-1 : Crop point cloud
@@ -100,6 +106,7 @@ def crop_pcl(lidar_pcl, configs, vis=True):
                     (lidar_pcl[:, 1] >= configs.lim_y[0]) & (lidar_pcl[:, 1] <= configs.lim_y[1]) &
                     (lidar_pcl[:, 2] >= configs.lim_z[0]) & (lidar_pcl[:, 2] <= configs.lim_z[1]))
     lidar_pcl = lidar_pcl[mask]
+    # lidar_pcl = lidar_pcl[:,:3]
 
     # visualize point-cloud
     if vis:
