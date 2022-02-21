@@ -97,3 +97,8 @@ RUN apt install -y x11-apps
 # provides glxgears and glxinfo
 RUN apt install -y mesa-utils
 ############################
+
+# Temp
+# Downgrade opencv-python to 3.4.11.45
+# for fixing the error of cv2.error: OpenCV(4.5.5) :-1: error: (-5:Bad argument) in function 'line'
+RUN pip3 install opencv-python==3.4.11.45
