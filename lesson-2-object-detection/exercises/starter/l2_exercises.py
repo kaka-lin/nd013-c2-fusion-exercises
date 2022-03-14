@@ -20,8 +20,8 @@ import math
 import numpy as np
 import zlib
 
-import matplotlib
-matplotlib.use('agg') # change backend so that figure maximizing works on Mac as well
+#import matplotlib
+#matplotlib.use('agg') # change backend so that figure maximizing works on Mac as well
 import matplotlib.pyplot as plt
 
 # Exercise C2-4-6 : Plotting the precision-recall curve
@@ -31,8 +31,10 @@ def plot_precision_recall():
     #              by subsequently setting the variable configs.conf_thresh to the values 0.1 ... 0.9 and noted down the results.
 
     # Please create a 2d scatter plot of all precision/recall pairs
-    pass
-
+    P = [0.97, 0.94, 0.93, 0.92, 0.915, 0.91, 0.89, 0.87, 0.82]
+    R = [0.738, 0.738, 0.743, 0.746, 0.746, 0.747, 0.748, 0.752, 0.754]
+    plt.scatter(R, P)
+    plt.show()
 
 
 # Exercise C2-3-4 : Compute precision and recall
